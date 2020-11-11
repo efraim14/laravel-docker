@@ -1,4 +1,4 @@
-FROM php:7.1-alpine
+FROM php:7.4-alpine
 
 # Install dev dependencies
 RUN apk add --no-cache --virtual .build-deps \
@@ -14,16 +14,22 @@ RUN apk add --no-cache --virtual .build-deps \
 RUN apk add --no-cache \
     bash \
     curl \
+    freetype-dev \
     g++ \
     gcc \
     git \
+    icu-dev \
+    icu-libs \
     imagemagick \
     libc-dev \
+    libjpeg-turbo-dev \
     libpng-dev \
+    libzip-dev \
     make \
     mysql-client \
     nodejs \
     nodejs-npm \
+    oniguruma-dev \
     yarn \
     openssh-client \
     postgresql-libs \
@@ -34,18 +40,29 @@ RUN apk add --no-cache \
 
 # Install PECL and PEAR extensions
 RUN pecl install \
+    redis \
     imagick \
     xdebug
 
-# Install and enable php extensions
+# Enable PECL and PEAR extensions
 RUN docker-php-ext-enable \
+    redis \
     imagick \
     xdebug
+
+# Configure php extensions
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-configure zip --with-libzip
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+
+# Install php extensions
 RUN docker-php-ext-install \
+    bcmath \
+    calendar \
     curl \
+    exif \
     iconv \
+    intl \
     mbstring \
     pdo \
     pdo_mysql \
@@ -65,7 +82,7 @@ RUN docker-php-ext-install \
 ENV COMPOSER_HOME /composer
 ENV PATH ./vendor/bin:/composer/vendor/bin:$PATH
 ENV COMPOSER_ALLOW_SUPERUSER 1
-RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
+RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer --version=1.10.16
 
 # Install PHP_CodeSniffer
 RUN composer global require "squizlabs/php_codesniffer=*"
