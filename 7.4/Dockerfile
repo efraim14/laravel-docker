@@ -51,9 +51,9 @@ RUN docker-php-ext-enable \
     xdebug
 
 # Configure php extensions
-RUN docker-php-ext-configure intl
-RUN docker-php-ext-configure zip --with-libzip
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-configure zip \
+    && docker-php-ext-configure intl
 
 # Install php extensions
 RUN docker-php-ext-install \
