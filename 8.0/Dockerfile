@@ -1,4 +1,4 @@
-FROM php:8.0-rc-alpine
+FROM php:8.0-alpine
 
 # Install dev dependencies
 RUN apk add --no-cache --virtual .build-deps \
@@ -68,7 +68,8 @@ RUN docker-php-ext-install \
     pcntl \
     tokenizer \
     xml \
-    zip
+    zip \
+    soap
 
 # Install composer
 ENV COMPOSER_HOME /composer

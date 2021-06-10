@@ -11,7 +11,7 @@ Forked to build using Composer Version 1.10.16 for 7.x
 | 7.2 | 7.2 | ✅ Everything |
 | 7.3 | 7.3 | ✅ Everything |
 | 7.4 | 7.4 | ✅ Everything |
-| 8.0 | 8.0 | 🚧 Waiting for `php:8.0-alpine`. Currently using `php:8.0-rc-alpine`. Extension `imagick` missing. |
+| 8.0 | 8.0 | 🚧 [Extension `imagick` missing](https://github.com/Imagick/imagick/issues/358). |
 | stable | **7.4** | 🔗 Aliases the latest stable version of PHP that supports all features of this docker image.  |
 | latest | **8.0** | 🔗 Aliases the latest stable version of PHP available (even if that version does not support all features yet). |
 
